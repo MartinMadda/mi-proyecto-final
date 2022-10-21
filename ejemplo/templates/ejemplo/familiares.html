@@ -8,14 +8,15 @@
 </head>
 <body style="background-color: rgb(96, 132, 180);">
 
-    <h1 style="text-align: center;">Lista de mis familiares</h1>
-
-    {% for familiar in lista_familiares %}
-        <ul>
-            <li> Nombre:{{familiar.nombre}}, Apellido:{{familiar.apellido}}, Dirección:{{familiar.direccion}}, Correo electrónico: {{familiar.email}}, Fecha de nacimiento: {{familiar.fechaNac}}, Pasaporte: {{familiar.numero_pasaporte}}</li>    
-        </ul>
-        <br>
-    {% endfor %}
+    {% extends 'ejemplo/base.html' %}
+{% block titulo%} Lista de todos mis Familiares {% endblock %}
+{% block contenido %}
+  {% for familiar in lista_familiares %}
+      <ul>
+          <li> Nombre: {{familiar.nombre}}, Apellido: {{familiar.apellido}}, Dirección: {{familiar.direccion}} , Correo Electrónico: {{familiar.email}}, , Fecha de nacimiento: {{familiar.fechaNac}}, Pasaporte: {{familiar.numero_pasaporte}}</li>
+      </ul>
+  {% endfor %}
+{% endblock %}
     
 </body>
 </html>
