@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-  <html lang="en">
+  <html lang="es">
   <head>
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Document</title>
+      <title>Romero - Maddalena</title>
   </head>
   <body>
     {% extends 'ejemplo/base.html' %}
@@ -14,13 +14,17 @@
       <form action="/mi-familia/buscar" method="post">
         {% csrf_token %}
         {{ form }}
-        <input type="submit" value="Submit">
+        <input type="submit" value="Buscar">
       </form>
     
       {% for familiar in lista_familiares %}
-          <ul>
-              <li> Nombre: {{familiar.nombre}}, Apellido: {{familiar.apellido}}, Dirección: {{familiar.direccion}} , Correo Electrónico: {{familiar.email}}, , Fecha de nacimiento: {{familiar.fechaNac}}, Pasaporte: {{familiar.numero_pasaporte}}</li>
-          </ul>
+        <ul>
+           <li>Nombre y Apellido: {{familiar.nombre}} {{familiar.apellido}}</li>
+           <li>Dirección: {{familiar.direccion}}</li>
+           <li>Correo Electrónico: {{familiar.email}}</li>
+           <li>Fecha de nacimiento: {{familiar.fechaNac}}</li>
+           <li>Número de pasaporte: {{familiar.numero_pasaporte}}</li>  
+        </ul>
       {% endfor %}
     {% endblock %}
 

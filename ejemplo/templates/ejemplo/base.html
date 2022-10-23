@@ -1,17 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    {% load static %}
+    <!--Core themeCSS -->
+    <link href="{% static 'ejemplo/estilos.css' %}" rel="stylesheet" />
+    <!--includes Bootstrap CSS-->
+    <link href="{% static 'ejemplo/css/styles.css' %}" rel="stylesheet" />
+    <title>Martín Maddalena - Johan Romero</title>
 </head>
 
 <body>
     <h1> Mi Pagina de Familiares </h1>
-    <h2>{% block titulo %}{% endblock %}<h2>
-    {% block contenido %}{% endblock %}
+    <h2>{% block titulo %} {% endblock %}<h2>
+    <h3>{% block contenido %} {% endblock %}</h3>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
 </body>
 
 </html>

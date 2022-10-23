@@ -1,22 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Maddalena - Romero</title>
 </head>
-<body style="background-color: rgb(96, 132, 180);">
+<body>
+ {% extends 'ejemplo/base.html' %}
+ {% block titulo%} Lista de todos mis Familiares {% endblock %}
 
-    {% extends 'ejemplo/base.html' %}
-{% block titulo%} Lista de todos mis Familiares {% endblock %}
-{% block contenido %}
-  {% for familiar in lista_familiares %}
-      <ul>
-          <li> Nombre: {{familiar.nombre}}, Apellido: {{familiar.apellido}}, Dirección: {{familiar.direccion}} , Correo Electrónico: {{familiar.email}}, , Fecha de nacimiento: {{familiar.fechaNac}}, Pasaporte: {{familiar.numero_pasaporte}}</li>
-      </ul>
-  {% endfor %}
-{% endblock %}
+ {% block contenido %}
+    {% for familiar in lista_familiares %}
+    <ul>
+        <li>Nombre y Apellido: {{familiar.nombre}} {{familiar.apellido}}</li> 
+        <li>Dirección: {{familiar.direccion}} </li>
+        <li>Correo electrónico: {{familiar.email}}</li> 
+        <li>Fecha de nacimiento: {{familiar.fechaNac}}</li>
+        <li>Número de pasaporte: {{familiar.numero_pasaporte}}</li>
+    </ul>
+    <br>
+    {% endfor %}
+ {% endblock %}
     
 </body>
 </html>
