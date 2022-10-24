@@ -1,15 +1,50 @@
 {% extends 'ejemplo/base.html' %}
-{% block titulo%} Alta de nuevo Familiar {% endblock %}
+{% block titulo%} Alta de nuevo Familiar: {% endblock %}
 
 {% block contenido %}
 
-</form>
-  <form action="/mi-familia/alta" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Guardar">
+<section class="sec_alta_fam" >
+
+  <form class="row g-3"  method="post">
+  {% csrf_token %}
+    <div class="col-md-12">
+      <p class="formu">Nombre:</p>
+      {{form.nombre}}
+    </div>
+
+    <div class="col-md-12">
+      <p class="formu">Apellido:</p>
+      {{form.apellido}}
+    </div>
+
+    <div class="col-md-12">
+      <p class="formu">Dirección:</p>
+      {{form.direccion}}
+    </div>
+
+    <div class="col-md-12">
+      <p class="formu">Correo electrónico:</p>
+      {{form.email}}
+    </div>
+
+    <div class="col-md-12">
+      <p class="formu_fecha">Fecha de nacimiento:</p>
+      {{form.fecha_de_nacimiento}}
+    </div>
+
+    <div class="col-md-12">
+      <p class="formu">Número de pasaporte:</p>
+      {{form.numero_pasaporte}}
+    </div>
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Cargar</button>
+    </div>
+
   </form>
 
-  <h2 style="color:green">{{msg_exito}}</h2>
+  <h3 class="msg_exito">{{msg_exito}}</h3>
 
-{% endblock %}
+</section>
+
+   {% endblock %}

@@ -32,7 +32,7 @@ class AltaFamiliar(View):
 
     form_class = FamiliarForm
     template_name = 'ejemplo/alta_familiar.html'
-    initial = {"nombre":"", "apellido":"", "direccion":"", "email":"", "fechaNac":"", "numero_pasaporte":""}
+    initial = {"nombre":"", "apellido":"", "direccion":"", "email":"", "fecha_de_nacimiento":"", "numero_pasaporte":""}
 
     def get(self, request):
         form = self.form_class(initial=self.initial)
@@ -42,7 +42,7 @@ class AltaFamiliar(View):
         form = self.form_class(request.POST)
         if form.is_valid():
             form.save()
-            msg_exito = f"se cargo con éxito el familiar {form.cleaned_data.get('nombre')}"
+            msg_exito = f"Se cargo con éxito el familiar {form.cleaned_data.get('nombre')} !!!"
             form = self.form_class(initial=self.initial)
             return render(request, self.template_name, {'form':form, 
                                                         'msg_exito': msg_exito})
