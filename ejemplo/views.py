@@ -12,7 +12,7 @@ class BuscarFamiliar(View):
 
     form_class = Buscar
     template_name = 'ejemplo/buscar.html'
-    initial = {"nombre":""}
+    initial = {"nombre":"Nombre a buscar"}
 
     def get(self, request):
         form = self.form_class(initial=self.initial)

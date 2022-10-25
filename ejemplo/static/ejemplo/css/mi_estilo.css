@@ -16,19 +16,17 @@ body{
     margin-bottom: 25px;
 }
 
-.formu{
+.formu {
     font-size: 30px;
     font-weight: bold;
-    color: #fff;
     text-align: center;
     text-decoration: underline;
     margin-bottom: 0%;
 }
 
-.formu_fecha{
+.formu_fecha {
     font-size: 20px;
     font-weight: bold;
-    color: #fff;
     text-align: center;
     text-decoration: underline;
     margin-bottom: 0%;
@@ -55,9 +53,18 @@ form{
 .msg_exito{
     color: #fff;
     background-color: rgb(34, 214, 49);
-    background-origin: border-box;
     font-weight: bold;
     font-size: 20px;
     text-align: center;
     border-radius: 30px;
+}
+
+.busqueda {
+    text-align: center;
+    list-style-type: none;
+}
+
+ul li span {
+    text-decoration:underline;
+    font-weight: bold;
 }

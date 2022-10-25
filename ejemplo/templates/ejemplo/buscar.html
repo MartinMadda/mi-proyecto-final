@@ -13,17 +13,17 @@
       
       <form action="/mi-familia/buscar" method="post">
         {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Buscar">
+        <div>{{ form }}</div>
+        <div><input type="submit" value="Buscar"></div>
       </form>
     
       {% for familiar in lista_familiares %}
-        <ul>
-           <li>Nombre y Apellido: {{familiar.nombre}} {{familiar.apellido}}</li>
-           <li>Dirección: {{familiar.direccion}}</li>
-           <li>Correo Electrónico: {{familiar.email}}</li>
-           <li>Fecha de nacimiento: {{familiar.fecha_de_nacimiento}}</li>
-           <li>Número de pasaporte: {{familiar.numero_pasaporte}}</li>  
+        <ul class="busqueda">
+           <li><span>Nombre y Apellido:</span> {{familiar.nombre}} {{familiar.apellido}}</li>
+           <li><span>Dirección:</span> {{familiar.direccion}}</li>
+           <li><span>Correo Electrónico:</span> {{familiar.email}}</li>
+           <li><span>Fecha de nacimiento:</span> {{familiar.fecha_de_nacimiento}}</li>
+           <li><span>Número de pasaporte:</span> {{familiar.numero_pasaporte}}</li>  
         </ul>
       {% endfor %}
     {% endblock %}
