@@ -474,9 +474,15 @@ urlpatterns = [
 ]
 ```
 
-## Creamos los siguientes archivos en: ```ejemplo/templates/...html```
+# Creamos los siguientes templates:
 
-- Para realizar el alta de usuario/familiar vamos a utilizar el siguente ```HTML```
+- En todos nuestros templates debemos heredar nuestro archivo ```base.html``` de la siguiente manera:
+
+```html
+{% extends 'ejemplo/base.html' %}
+```
+
+- Para realizar el alta de usuario/familiar vamos vamos a crear ```alta_familiar.html``` en la siguiente ruta ```templates/ejemplo/alta_familiar.html```
 
 ```html
 
@@ -527,7 +533,7 @@ urlpatterns = [
    {% endblock %} <!-- cerramos el bloque -->
 ```
 
-- Para realizar una busqueda de usuario y/o familiar vamos a utilizar el siguente ```HTML```
+- Para las busquedas de usuarios/familiares vamos a crear ```buscar.html``` en la siguiente ruta ```templates/ejemplo/buscar.html```
 
 ```HTML
 
@@ -587,7 +593,7 @@ urlpatterns = [
 
 ```
 
-- Para ver los usuarios/familiares cargados en la db vamos a utilizar el siguente ```HTML```
+- Para ver los usuarios/familiares cargados en la db vamos a crear ```familiares.html``` en la siguiente ruta ```templates/ejemplo/familiares.html```
 
 ```html
 
@@ -638,12 +644,34 @@ urlpatterns = [
 ```
 
 - Recordemos que podemos utilizar el archivo seed_data.py para cargar usuarios mediante el ```shell``` comando: ``` python manage.py shell ```
-Por ejemplo:
+
+- Luego en la consola de visual estudio code vamos a ejecutar el script de la siguiente manera:
+
+Esta opción solo funciona en terminal bash:
+
+```bash
+python manage.py shell < seed_data.py
+```
+Para un terminal cmd o powershell, tienen que hacer, primero:
+```cmd
+python manage.py shell
+```
+una vez que estan en el shell hacer:
+
+```python
+import seed_data
+```
+al finalizar, para ambos casos, se tiene que ver un msj que diga: 
+```
+Se cargo con éxito los usuarios de pruebas
+```
+
+## Por ejemplo:
 
 ```Python
-from ejemplo.models import Familiar #el import trae las variables
+from ejemplo.models import Familiar # El import trae las variables
 
-Familiar(nombre = "Rosario", apellido = "Garcia", direccion ="Rio Parana 745", email = "rogarcia@gmail.com", fechaNac = "1920-12-5", numero_pasaporte = 123123).save() # el .save() guarda en la base de datos
+Familiar(nombre = "Rosario", apellido = "Garcia", direccion ="Rio Parana 745", email = "rogarcia@gmail.com", fechaNac = "1920-12-5", numero_pasaporte = 123123).save() #  El .save() guarda en la base de datos
 
 Familiar(nombre="Romina", apellido= "Londo", direccion="Melo 3790", email= "londoromi@gmail.com", fechaNac = "1930-7-15", numero_pasaporte=454545).save()
 
@@ -654,3 +682,11 @@ print("Se cargo con éxito los usuarios de pruebas")
 
 ```
 
+
+- Para guardar los cambios en github:
+
+  ```git add .```
+  
+  ```git commit -m "El mensaje que quieras"```
+  
+  ```git push origin main```
