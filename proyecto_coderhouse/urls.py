@@ -22,10 +22,10 @@ from blog.views import index as blog_index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('blog/', blog_index),
-    path('mi-familia/', monstrar_familiares),
-    path('mi-familia/buscar', BuscarFamiliar.as_view()), 
-    path('mi-familia/alta', AltaFamiliar.as_view()),
+    path('', blog_index, name="Inicio"),
+    path('mi-familia/', monstrar_familiares, name="Lista"),
+    path('mi-familia/buscar', BuscarFamiliar.as_view(), name="Buscar"), 
+    path('mi-familia/alta', AltaFamiliar.as_view(), name="Alta"),
 
 
 ]
