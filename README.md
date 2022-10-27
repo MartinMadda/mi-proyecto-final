@@ -369,3 +369,107 @@ class Configuracion(models.Model):
 
 - Creamos una clase y agregamos variables para generar un acceso rapido a las configuraciones basicas desde el ```admin``` que va a estar conectado al ```index.html```
 
+### En la carpeta ```ejemplo/``` creamos un nuevo archivo llamado ```forms.py``` realizamos algunos imports nuevos y ademas agregamos 2 clases.
+
+```python
+from cProfile import label # Predeterminada de Django
+from django import forms # Predeterminada de Django
+from ejemplo.models import Familiar #Funcion que creamos models
+
+class Buscar(forms.Form):
+  nombre = forms.CharField(max_length=100) #Para buscar usuario por "nombre"
+
+class FamiliarForm(forms.ModelForm): # Realiza un formulario basico que luego se lo pasamos a HTML
+  class Meta:
+    model = Familiar
+    fields = [
+      'nombre',
+      'apellido',
+      'direccion', 
+      'email',
+      'fecha_de_nacimiento', 
+      'numero_pasaporte' 
+    ]
+    widgets = {
+      'nombre':forms.TextInput(attrs={'placeholder':'Nombre'}),
+      'apellido':forms.TextInput(attrs={'placeholder':'Apellido'}),
+      'direccion':forms.TextInput(attrs={'placeholder':'direccion'}),
+      'email':forms.EmailInput(attrs={'placeholder':'ejemplo@gmail.com'}),
+      'fecha_de_nacimiento': forms.DateInput(attrs={'type':'date'}),
+      'numero_pasaporte':forms.NumberInput(attrs={'placeholder':'Pasaporte N°'})
+      }
+``` 
+
+### En la carpeta ```ejemplo/views.py``` hacemos los imports y creamos las funciones que nos van ayudar a realizar busquedas, mostrar un listado por pantalla y registrar nuevos datos.
+
+```python
+from django.shortcuts import render # Predeterminada de Django
+from ejemplo.models import Familiar # importamos las clases de models.py
+from ejemplo.forms import Buscar, FamiliarForm # importamos las clases de forms.py
+from django.views import View # Predeterminada de Django
+
+
+def monstrar_familiares(request): # Hace una lista los familiares
+  lista_familiares = Familiar.objects.all()
+  return render(request, "ejemplo/familiares.html", {"lista_familiares": lista_familiares})
+
+class BuscarFamiliar(View): # Para realizar las busquedas de familiares
+    form_class = Buscar
+    template_name = 'ejemplo/buscar.html'
+    initial = {"nombre":"Nombre a buscar"}
+
+    def get(self, request):
+        form = self.form_class(initial=self.initial)
+        return render(request, self.template_name, {'form':form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            nombre = form.cleaned_data.get("nombre")
+            lista_familiares = Familiar.objects.filter(nombre__icontains=nombre).all() 
+            form = self.form_class(initial=self.initial)
+            return render(request, self.template_name, {'form':form, 
+                                                        'lista_familiares':lista_familiares})
+        return render(request, self.template_name, {"form": form})
+
+class AltaFamiliar(View): # Para registrar los nuevos familiares
+
+    form_class = FamiliarForm
+    template_name = 'ejemplo/alta_familiar.html'
+    initial = {"nombre":"", "apellido":"", "direccion":"", "email":"", "fecha_de_nacimiento":"", "numero_pasaporte":""}
+
+    def get(self, request):
+        form = self.form_class(initial=self.initial)
+        return render(request, self.template_name, {'form':form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            msg_exito = f"Se cargo con éxito el familiar {form.cleaned_data.get('nombre')} !!!"
+            form = self.form_class(initial=self.initial)
+            return render(request, self.template_name, {'form':form, 
+                                                        'msg_exito': msg_exito})
+        
+        return render(request, self.template_name, {"form": form})   
+
+``` 
+
+### Dentro de ``` proyecto_coderhouse/urls.py``` agregamos los imports y las rutas para que se muestren por pantalla de la siguiente manera:
+
+```python
+from django.contrib import admin
+from django.urls import path
+from ejemplo.views import (monstrar_familiares, BuscarFamiliar, 
+                           AltaFamiliar) # SE AGREGAN TODAS LAS CLASES DE EJEMPLO/VIEWS.PY
+from blog.views import index as blog_index # SE AGREGAN TODAS LAS CLASES DE BLOG/VIEWS.PY
+
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', blog_index, name="Inicio"), # RUTA PARA INDEX.HTML
+    path('mi-familia/', monstrar_familiares, name="Lista"), # RUTA PARA MOSTRAR LOS FAMILIARES
+    path('mi-familia/buscar', BuscarFamiliar.as_view(), name="Buscar"), # RUTA PARA BUSCAR UN FAMILIAR
+    path('mi-familia/alta', AltaFamiliar.as_view(), name="Alta"), # RUTA DEL FORMULARIO PARA GUARDAR UN FAMILIAR NUEVO
+]
+```
