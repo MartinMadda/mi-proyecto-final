@@ -473,3 +473,184 @@ urlpatterns = [
     path('mi-familia/alta', AltaFamiliar.as_view(), name="Alta"), # RUTA DEL FORMULARIO PARA GUARDAR UN FAMILIAR NUEVO
 ]
 ```
+
+## Creamos los siguientes archivos en: ```ejemplo/templates/...html```
+
+- Para realizar el alta de usuario/familiar vamos a utilizar el siguente ```HTML```
+
+```html
+
+{% extends 'ejemplo/base.html' %} <!-- Se utiliza {% extends 'ejemplo/base.html' %} para tomar la estructura/maquetado del base.html -->
+
+
+{% block contenido %}<!-- Utilizamos un bloque en donde debemos  ingresar el contenido que contendra nuestro html-->
+<center>
+  <h1>Alta de nuevo Familiar</h1>
+<section class="sec_alta_fam" >
+
+  <form class="row g-12"  method="post">
+  {% csrf_token %} <!-- protege ante falsificacion de solicitudes de otras fuentes. -->
+
+    <div class="col-md-12"> 
+      {{form.nombre}} {{form.apellido}}<!-- cargar nuestros datos-->
+    </div>
+    <p></p>
+
+
+      
+    <div class="col-md-12">    
+      {{form.direccion}} {{form.email}}
+
+    </div>
+    <p></p>
+ 
+
+    <div class="col-md-24"> 
+      {{form.numero_pasaporte}}
+    </div>
+    <p></p>
+    <div class="col-md-12">  
+      {{form.fecha_de_nacimiento}}
+    </div>
+    <p></p>
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-warning">Cargar Nuevo</button><!-- boton para cargar datos -->
+    </div>
+
+  </form>
+
+  <h3 class="msg_exito">{{msg_exito}}</h3>
+
+</section>
+</center>
+   {% endblock %} <!-- cerramos el bloque -->
+```
+
+- Para realizar una busqueda de usuario y/o familiar vamos a utilizar el siguente ```HTML```
+
+```HTML
+
+<!DOCTYPE html>
+  <html lang="es">
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Romero - Maddalena</title>
+  </head>
+  <body>
+    {% extends 'ejemplo/base.html' %}
+    
+    {% block contenido %}
+    <div class="container"> 
+      <center><h1>Buscar por nombre</h1>
+      <form action="/mi-familia/buscar" method="post"><!-- utilizamos metodo post para mandar y traer a la db -->
+        {% csrf_token %}<!-- protege. -->
+        <div>{{ form }}</div><!--guarda-->
+        <div><input type="submit" class="btn btn-warning"></div>
+      </form>
+    
+      <table class="table">
+         <thead>
+         <tr>
+             <th scope="col">ID</th>
+             <th scope="col">Nombre</th>
+             <th scope="col">Apellido</th>
+             <th scope="col">Documento</th>
+             <th scope="col">Email/Correo</th>
+             <th scope="col">Direccion</th>
+             <th scope="col">Nacimiento</th>
+         </tr>
+         </thead>
+         <tbody class="table-group-divider">
+     
+         {% for user in lista_familiares %} <!--FILTRA-->
+             <tr>
+                 <th scope="row">{{ user.id }}</th><!-- Muestra datos del usuario que buscamos-->
+                 <td>{{ user.nombre}}</td>
+                 <td>{{ user.apellido }}</td>
+                 <td>{{ user.numero_pasaporte }}</td>
+                 <td>{{ user.email }}</td>
+                 <td>{{ user.direccion }}</td>
+                 <td>{{ user.fecha_de_nacimiento }}</td>
+             </tr>
+             
+             
+             
+         {% endfor %} <!-- finalizamos for -->
+    {% endblock %}
+  </center>
+  </div>
+  </body>
+  </html>
+
+```
+
+- Para ver los usuarios/familiares cargados en la db vamos a utilizar el siguente ```HTML```
+
+```html
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maddalena - Romero</title>
+</head>
+<body>
+ {% extends 'ejemplo/base.html' %}
+ {% block titulo%} Lista de todos mis Familiares {% endblock %}
+ {% block contenido %}
+ <table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">Documento</th>
+        <th scope="col">Email/Correo</th>
+        <th scope="col">Direccion</th>
+        <th scope="col">Nacimiento</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+
+    {% for user in lista_familiares %}
+        <tr>
+            <th scope="row">{{ user.id }}</th>
+            <td>{{ user.nombre}}</td>
+            <td>{{ user.apellido }}</td>
+            <td>{{ user.numero_pasaporte }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.direccion }}</td>
+            <td>{{ user.fecha_de_nacimiento }}</td>
+        </tr>
+        
+        
+        
+    {% endfor %}
+{% endblock %}
+</body>
+</html>
+
+```
+
+- Recordemos que podemos utilizar el archivo seed_data.py para cargar usuarios mediante el ```shell``` comando: ``` python manage.py shell ```
+Por ejemplo:
+
+```Python
+from ejemplo.models import Familiar #el import trae las variables
+
+Familiar(nombre = "Rosario", apellido = "Garcia", direccion ="Rio Parana 745", email = "rogarcia@gmail.com", fechaNac = "1920-12-5", numero_pasaporte = 123123).save() # el .save() guarda en la base de datos
+
+Familiar(nombre="Romina", apellido= "Londo", direccion="Melo 3790", email= "londoromi@gmail.com", fechaNac = "1930-7-15", numero_pasaporte=454545).save()
+
+Familiar(nombre="Carlos", apellido= "Mario", direccion="Venezuela 840", email= "Carlos_Mario@gmail.com", fechaNac = "1940-9-20", numero_pasaporte=123123).save()
+
+
+print("Se cargo con éxito los usuarios de pruebas")
+
+```
+
