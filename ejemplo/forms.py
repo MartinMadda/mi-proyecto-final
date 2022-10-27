@@ -19,7 +19,7 @@ class FamiliarForm(forms.ModelForm):
     widgets = {
       'nombre':forms.TextInput(attrs={'placeholder':'Nombre'}),
       'apellido':forms.TextInput(attrs={'placeholder':'Apellido'}),
-      'direccion':forms.TextInput(attrs={'placeholder':'Ejemplo 123'}),
+      'direccion':forms.TextInput(attrs={'placeholder':'direccion'}),
       'email':forms.EmailInput(attrs={'placeholder':'ejemplo@gmail.com'}),
       'fecha_de_nacimiento': forms.DateInput(attrs={'type':'date'}),
       'numero_pasaporte':forms.NumberInput(attrs={'placeholder':'Pasaporte N°'})

@@ -330,3 +330,42 @@ MIDDLEWARE = [
 
 - ```crispy-forms``` sirve para leer correctamente las plantillas del bootstrap4.
 
+## En la carpeta: ```ejemplo/Models.py```
+
+- Realizar el import ```from django.db import models``` y crear la siguiente clase: 
+
+```Python
+
+class Familiar(models.Model):
+    nombre = models.CharField(max_length=100)
+    apellido = models.CharField(max_length=100)
+    direccion = models.CharField(max_length=100)
+    email = models.EmailField()
+    fecha_de_nacimiento = models.DateField()
+    numero_pasaporte = models.IntegerField()
+    
+def __str__(self):
+    return f"{self.nombre}, {self.apellido}, {self.direccion}, {self.email}, {self.fecha_de_nacimiento}, {self.numero_pasaporte}, {self.id}"
+
+```
+
+- Creamos una clase y agregamos variables para generar un formulario poco estetico que va a estar conectado a la ```db, forms, views, 0001 y admin```
+
+## En la carpeta: ```blog/Models.py```
+
+- Realizar el import ```from django.db import models```y tambien importamos ```from traitlets import default``` y crear la siguiente clase: 
+
+```Python
+
+from traitlets import default
+
+class Configuracion(models.Model):
+    nombre_blog = models.CharField(max_length=20)
+    construido_por = models.CharField(max_length=30)
+    titulo_principal = models.CharField(max_length=30, default='')
+    subtitulo_principal = models.CharField(max_length=70, default='')
+
+```
+
+- Creamos una clase y agregamos variables para generar un acceso rapido a las configuraciones basicas desde el ```admin``` que va a estar conectado al ```index.html```
+
