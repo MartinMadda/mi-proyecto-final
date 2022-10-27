@@ -8,25 +8,46 @@
   </head>
   <body>
     {% extends 'ejemplo/base.html' %}
-    {% block titulo%} Buscar Familiares por nombre {% endblock %}
+    
     {% block contenido %}
-      
+    <div class="container"> 
+      <center><h1>Buscar por nombre</h1>
       <form action="/mi-familia/buscar" method="post">
         {% csrf_token %}
         <div>{{ form }}</div>
-        <div><input type="submit" value="Buscar"></div>
+        <div><input type="submit" class="btn btn-warning"></div>
       </form>
     
-      {% for familiar in lista_familiares %}
-        <ul class="busqueda">
-           <li><span>Nombre y Apellido:</span> {{familiar.nombre}} {{familiar.apellido}}</li>
-           <li><span>Dirección:</span> {{familiar.direccion}}</li>
-           <li><span>Correo Electrónico:</span> {{familiar.email}}</li>
-           <li><span>Fecha de nacimiento:</span> {{familiar.fecha_de_nacimiento}}</li>
-           <li><span>Número de pasaporte:</span> {{familiar.numero_pasaporte}}</li>  
-        </ul>
-      {% endfor %}
+      <table class="table">
+         <thead>
+         <tr>
+             <th scope="col">ID</th>
+             <th scope="col">Nombre</th>
+             <th scope="col">Apellido</th>
+             <th scope="col">Documento</th>
+             <th scope="col">Email/Correo</th>
+             <th scope="col">Direccion</th>
+             <th scope="col">Nacimiento</th>
+         </tr>
+         </thead>
+         <tbody class="table-group-divider">
+     
+         {% for user in lista_familiares %}
+             <tr>
+                 <th scope="row">{{ user.id }}</th>
+                 <td>{{ user.nombre}}</td>
+                 <td>{{ user.apellido }}</td>
+                 <td>{{ user.numero_pasaporte }}</td>
+                 <td>{{ user.email }}</td>
+                 <td>{{ user.direccion }}</td>
+                 <td>{{ user.fecha_de_nacimiento }}</td>
+             </tr>
+             
+             
+             
+         {% endfor %}
     {% endblock %}
-
+  </center>
+  </div>
   </body>
   </html>

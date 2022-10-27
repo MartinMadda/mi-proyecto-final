@@ -1,44 +1,40 @@
 {% extends 'ejemplo/base.html' %}
-{% block titulo%} Alta de nuevo Familiar: {% endblock %}
+
+
 
 {% block contenido %}
-
+<center>
+  <h1>Alta de nuevo Familiar</h1>
 <section class="sec_alta_fam" >
 
-  <form class="row g-3"  method="post">
+  <form class="row g-12"  method="post">
   {% csrf_token %}
-    <div class="col-md-12">
-      <p class="formu">Nombre:</p>
-      {{form.nombre}}
-    </div>
 
-    <div class="col-md-12">
-      <p class="formu">Apellido:</p>
-      {{form.apellido}}
+    <div class="col-md-12"> 
+      {{form.nombre}} {{form.apellido}}
     </div>
+    <p></p>
 
-    <div class="col-md-12">
-      <p class="formu">Dirección:</p>
-      {{form.direccion}}
+
+      
+    <div class="col-md-12">    
+      {{form.direccion}} {{form.email}}
+
     </div>
+    <p></p>
+ 
 
-    <div class="col-md-12">
-      <p class="formu">Correo electrónico:</p>
-      {{form.email}}
-    </div>
-
-    <div class="col-md-12">
-      <p class="formu_fecha">Fecha de nacimiento:</p>
-      {{form.fecha_de_nacimiento}}
-    </div>
-
-    <div class="col-md-12">
-      <p class="formu">Número de pasaporte:</p>
+    <div class="col-md-24"> 
       {{form.numero_pasaporte}}
     </div>
+    <p></p>
+    <div class="col-md-12">  
+      {{form.fecha_de_nacimiento}}
+    </div>
+    <p></p>
 
     <div class="col-12">
-      <button type="submit" class="btn btn-primary">Cargar</button>
+      <button type="submit" class="btn btn-warning">Cargar Nuevo</button>
     </div>
 
   </form>
@@ -46,5 +42,6 @@
   <h3 class="msg_exito">{{msg_exito}}</h3>
 
 </section>
-
+</center>
    {% endblock %}
+  

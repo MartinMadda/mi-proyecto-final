@@ -9,19 +9,35 @@
 <body>
  {% extends 'ejemplo/base.html' %}
  {% block titulo%} Lista de todos mis Familiares {% endblock %}
-
  {% block contenido %}
-    {% for familiar in lista_familiares %}
-    <ul>
-        <li>Nombre y Apellido: {{familiar.nombre}} {{familiar.apellido}}</li> 
-        <li>Dirección: {{familiar.direccion}} </li>
-        <li>Correo electrónico: {{familiar.email}}</li> 
-        <li>Fecha de nacimiento: {{familiar.fecha_de_nacimiento}}</li>
-        <li>Número de pasaporte: {{familiar.numero_pasaporte}}</li>
-    </ul>
-    <br>
+ <table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">Documento</th>
+        <th scope="col">Email/Correo</th>
+        <th scope="col">Direccion</th>
+        <th scope="col">Nacimiento</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+
+    {% for user in lista_familiares %}
+        <tr>
+            <th scope="row">{{ user.id }}</th>
+            <td>{{ user.nombre}}</td>
+            <td>{{ user.apellido }}</td>
+            <td>{{ user.numero_pasaporte }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.direccion }}</td>
+            <td>{{ user.fecha_de_nacimiento }}</td>
+        </tr>
+        
+        
+        
     {% endfor %}
- {% endblock %}
-    
+{% endblock %}
 </body>
 </html>
