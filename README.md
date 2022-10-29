@@ -10,6 +10,10 @@ $ pip install python
 ```bash
 $ pip install django
 ```
+### Instalar Crispy-forms
+```bash
+$ pip install django-crispy-forms
+```
 
 ## Verificar que este todo correctamente instalado
 

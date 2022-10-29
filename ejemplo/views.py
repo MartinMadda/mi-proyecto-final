@@ -1,3 +1,4 @@
+from logging import PlaceHolder
 from django.shortcuts import render
 from ejemplo.models import Familiar
 from ejemplo.forms import Buscar, FamiliarForm 
@@ -12,7 +13,7 @@ class BuscarFamiliar(View):
 
     form_class = Buscar
     template_name = 'ejemplo/buscar.html'
-    initial = {"nombre":"Nombre a buscar"}
+    initial = {"nombre": ""}
 
     def get(self, request):
         form = self.form_class(initial=self.initial)
