@@ -1,7 +1,7 @@
 from logging import PlaceHolder
 from django.shortcuts import render
 from ejemplo.models import Familiar
-from ejemplo.forms import Buscar, FamiliarForm, EmpresaForm 
+from ejemplo.forms import Buscar, FamiliarForm, EmpresaForm , MascotaForm
 from django.views import View 
 
 
@@ -71,3 +71,25 @@ class AltaFamiliar(View):
                                                         'msg_exito': msg_exito})
         
         return render(request, self.template_name, {"form": form})   
+
+
+class Veterinaria(View):
+
+    form_class = MascotaForm
+    template_name = 'ejemplo/Veterinaria.html'
+    initial = {"nombre_mascota":"", "animal":"", "telefono_dueño":""}
+
+    def get(self, request):
+        form = self.form_class(initial=self.initial)
+        return render(request, self.template_name, {'form':form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            msg_exito = f"Se cargo con éxito {form.cleaned_data.get('nombre_mascota')} !!!"
+            form = self.form_class(initial=self.initial)
+            return render(request, self.template_name, {'form':form, 
+                                                        'msg_exito': msg_exito})
+        
+        return render(request, self.template_name, {"form": form}) 

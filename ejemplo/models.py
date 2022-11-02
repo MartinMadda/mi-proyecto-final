@@ -19,4 +19,18 @@ class Empresa(models.Model):
     def __str__(self): #proximamente mostramos con autorizacion login
         return f"{self.nombre_empresa}, {self.url_empresa}, {self.telefono}, {self.id}"
 
+class Mascota(models.Model):
+    nombre_mascota=models.CharField(max_length=100)
+    animal=models.CharField(max_length=300)
+    telefono_dueño=models.IntegerField()
+
+    def __str__(self):
+        return f"{self.nombre_mascota},{self.animal},{self.telefono_dueño}"
+
+
+
+
+
+
+
 

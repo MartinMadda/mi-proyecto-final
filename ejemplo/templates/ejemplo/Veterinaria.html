@@ -1,0 +1,41 @@
+{% extends 'ejemplo/base.html' %}
+
+{% block contenido %}
+
+<center>
+    <h1>Turno Veterinario</h1>
+  <section class="sec_alta_fam" >
+  
+        <form class="row g-12"  method="post">
+        
+            {% csrf_token %}
+    
+            
+        <div class="col-md-24">    
+            {{form.nombre_mascota}} 
+    
+        </div>
+        <p></p>
+    
+    
+        <div class="col-md-24"> 
+            {{form.animal}}
+        </div>
+        <p></p>
+        <div class="col-md-12">  
+            {{form.telefono_dueño}}
+        </div>
+        <p></p>
+    
+        <div class="col-12">
+            <button type="submit" class="btn btn-warning">Cargar Nuevo</button>
+        </div>
+    
+        </form>
+    
+        <h3 class="msg_exito">{{msg_exito}}</h3>
+  
+  </section>
+  </center>
+
+{% endblock %}

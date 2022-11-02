@@ -694,3 +694,102 @@ print("Se cargo con éxito los usuarios de pruebas")
   ```git commit -m "El mensaje que quieras"```
   
   ```git push origin main```
+
+
+  ```python
+
+class Veterinaria(View):
+
+    form_class = MascotaForm
+    template_name = 'ejemplo/Veterinaria.html'
+    initial = {"nombre_mascota":"", "animal":"", "telefono_dueño":""}
+
+    def get(self, request):
+        form = self.form_class(initial=self.initial)
+        return render(request, self.template_name, {'form':form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            msg_exito = f"Se cargo con éxito {form.cleaned_data.get('nombre_mascota')} !!!"
+            form = self.form_class(initial=self.initial)
+            return render(request, self.template_name, {'form':form, 
+                                                        'msg_exito': msg_exito})
+        
+        return render(request, self.template_name, {"form": form}) 
+
+```
+
+``` html
+{% extends 'ejemplo/base.html' %}
+
+{% block contenido %}
+
+<center>
+    <h1>Turno Veterinario</h1>
+  <section class="sec_alta_fam" >
+  
+        <form class="row g-12"  method="post">
+        
+            {% csrf_token %}
+    
+            
+        <div class="col-md-24">    
+            {{form.nombre_mascota}} 
+    
+        </div>
+        <p></p>
+    
+    
+        <div class="col-md-24"> 
+            {{form.animal}}
+        </div>
+        <p></p>
+        <div class="col-md-12">  
+            {{form.telefono_dueño}}
+        </div>
+        <p></p>
+    
+        <div class="col-12">
+            <button type="submit" class="btn btn-warning">Cargar Nuevo</button>
+        </div>
+    
+        </form>
+    
+        <h3 class="msg_exito">{{msg_exito}}</h3>
+  
+  </section>
+  </center>
+
+{% endblock %}
+
+```
+
+```python
+
+class MascotaForm(forms.ModelForm):
+  class Meta:
+    model = Mascota
+    fields = [
+      'nombre_mascota',
+      'animal',
+      'telefono_dueño', 
+    ]
+    widgets = {
+      'nombre_mascota':forms.TextInput(attrs={'placeholder':'Nombre de la Mascota'}),
+      'animal':forms.TextInput(attrs={'placeholder':'Que animal es'}),
+      'telefono_dueño':forms.NumberInput(attrs={'placeholder':'telefono del dueño'}),
+      }
+```
+
+```python
+class Mascota(models.Model):
+    nombre_mascota=models.CharField(max_length=100)
+    animal=models.CharField(max_length=300)
+    telefono_dueño=models.IntegerField()
+
+    def __str__(self):
+        return f"{self.nombre_mascota},{self.animal},{self.telefono_dueño}"
+
+```
