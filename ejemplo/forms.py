@@ -1,6 +1,6 @@
 from cProfile import label
 from django import forms
-from ejemplo.models import Familiar
+from ejemplo.models import Familiar, Empresa
 
 class Buscar(forms.Form):
   nombre = forms.CharField(max_length=100)
@@ -24,4 +24,17 @@ class FamiliarForm(forms.ModelForm):
       'fecha_de_nacimiento': forms.DateInput(attrs={'type':'date'}),
       'numero_pasaporte':forms.NumberInput(attrs={'placeholder':'Pasaporte N°'})
       }
-    
+class EmpresaForm(forms.ModelForm):
+  class Meta:
+    model = Empresa
+    fields = [
+      'nombre_empresa',
+      'url_empresa',
+      'telefono', 
+    ]
+    widgets = {
+      'nombre_empresa':forms.TextInput(attrs={'placeholder':'Nombre de Empresa'}),
+      'url_empresa':forms.TextInput(attrs={'placeholder':'url_empresa'}),
+      'telefono':forms.TextInput(attrs={'placeholder':'telefono'}),
+
+      }
